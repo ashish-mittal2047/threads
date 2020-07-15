@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
+
+//for accessing static files
+app.use(express.static('./assets'));
+
 //Instructing to use ejs layout library. This should be before defining router so that router accesses views accordingly
 app.use(expressLayouts);
 
