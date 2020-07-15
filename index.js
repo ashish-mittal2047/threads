@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const port = 8000;
+const expressLayouts = require('express-ejs-layouts');
+//Instructing to use ejs layout library. This should be before defining router so that router accesses views accordingly
+app.use(expressLayouts);
 
 //use express router
 app.use('/',require('./routes'));       //we have directly written require here, instead of storing require in a variable and then writing.We also don't need to mention index.js in routes as it is picked by default

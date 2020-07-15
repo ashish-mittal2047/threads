@@ -1,0 +1,16 @@
+<!--This file acts as a wrapper around the code of other view files. Code of other view files is inserted into body variable of this layout file.-->
+
+<html>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+    </head>
+    <body>
+        <%- include('_header'); -%>
+        
+        <%- body %>
+
+        <%- include('_footer'); -%>
+    </body>
+</html>
