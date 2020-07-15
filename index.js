@@ -9,6 +9,10 @@ app.use(express.static('./assets'));
 //Instructing to use ejs layout library. This should be before defining router so that router accesses views accordingly
 app.use(expressLayouts);
 
+//Extract styles and scripts from sub pages into the layout. These override default layout style and script so that individual style and scripts can be given.
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
+
 //use express router
 app.use('/',require('./routes'));       //we have directly written require here, instead of storing require in a variable and then writing.We also don't need to mention index.js in routes as it is picked by default
 
