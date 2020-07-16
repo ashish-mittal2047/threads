@@ -99,3 +99,9 @@ module.exports.createSession = function(req,res){
 
     });
 }
+
+module.exports.signOut = function(req,res){
+    //deleting the cookie associated to signed-in user
+    res.clearCookie('user_id');
+    return res.redirect('/users/sign-in');
+}
