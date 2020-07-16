@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { model } = require('../config/mongoose');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -21,4 +20,4 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User',userSchema);
 
-model.exports = User;
+module.exports = User;
