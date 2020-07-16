@@ -2,9 +2,32 @@
 const User = require('../models/user');
 
 module.exports.profile = function(req, res){
-    return res.render('user_profile',{
-        title: "Profile"
-    });
+    //first detect whether there is a cookie named user_id
+    if(req.cookies.user_id)
+    {
+        //finding info of that user in the database through cookie 
+        User.findById(req.cookies.user_id,function(err,user){
+            if(err){console.log('error while finding user');return;}
+            //if user is found in  database
+            if(user)
+            {
+                return res.render('user_profile',{
+                    title: "User Profile",
+                    user: user
+                });
+            }
+            else{
+                //user not found in database
+                return res.redirect('/users/sign-in');
+            }
+        });
+    }
+    else
+    {
+        //no such cookie is present. This means someone has directly tried to access profile page without signing in. Some smart ass.
+        return res.redirect('/users/sign-in');
+    }
+
 }
 
 //render the sign up page
