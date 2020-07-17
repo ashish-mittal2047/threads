@@ -9,6 +9,7 @@ const User = require('./models/user');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo')(session);   //this requires argument session as we need to store session info in MongoDB so that every time server restarts, users don't get signed out
 
 //for reading POST requests
 app.use(express.urlencoded());
@@ -31,7 +32,7 @@ app.set('layout extractScripts',true);
 app.set('view engine','ejs');
 app.set('views','./views');             //instead of using path.join and __dirname, we write relative path directly
 
-
+//mongo store is used to store session cookie in database
 app.use(session({
     name: 'threads',
     //TODO change the secret before deployment in production mode
