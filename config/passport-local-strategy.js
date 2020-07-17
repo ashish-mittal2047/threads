@@ -5,7 +5,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 //authentication using passport
 passport.use(new LocalStrategy({
-        usernameField: 'email'
+        usernameField: 'email'  //as defined in schema
     },
     function(email, password, done){    //done is in-built argument
         //find a user and establish the identity
@@ -28,14 +28,13 @@ passport.use(new LocalStrategy({
 
 ));
 
-//serializing the user to decide which key is to be kept in the cookies. This encrypts user.id
+//serializing the user to decide which key is to be kept in the cookies. This sends the cookie to express-session which encrypts id and then this function stores it in session cookie
 passport.serializeUser(function(user, done){
     done(null, user.id);
 });
 
 
-//deserializing the user from the key in the cookies
-
+//deserializing the user from the key in the cookies. Here , the encrypted key is decrypted to know the object id of user and that id is further used to access info of that user in database
 passport.deserializeUser(function(id,done){
     User.findById(id,function(err,user){
         if(err){
