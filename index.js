@@ -41,7 +41,16 @@ app.use(session({
     resave:false,
     cookie: {
         maxAge: (1000 * 60 * 100) // in milliseconds
-    }
+    },
+    store: new MongoStore(
+        {
+            mongooseConnection: db,
+            autoRemove: 'disabled'  
+        },
+        function(err){
+            console.log(err || 'connect-mongo setup ok');   //this displays error if it occurs otherwise prints the string connect-mongo setup ok 
+        }
+    )
 }));
 
 app.use(passport.initialize());
