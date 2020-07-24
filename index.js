@@ -10,6 +10,16 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo')(session);   //this requires argument session as we need to store session info in MongoDB so that every time server restarts, users don't get signed out
+const sassMiddleware = require('node-sass-middleware');
+
+
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix: '/css'
+}));          //we instruct program to use this middleware before server starts so that these files are precompiled
 
 //for reading POST requests
 app.use(express.urlencoded());

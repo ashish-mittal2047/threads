@@ -6,13 +6,20 @@
             <%= title %>
         </title>
         <link rel="stylesheet" type='text/css' href="/css/layout.css">
+        <link rel="stylesheet" type="text/css" href="/css/header.css">
+        <link rel="stylesheet" type="text/css" href="/css/footer.css">
+
         <%- style -%>
         <!--This style variable inserts style of respective view into itself-->
     </head>
     <body>
         <%- include('_header'); -%>
         
-        <%- body %>
+        <main id="layout-main">
+            <%- body %>
+            
+        </main>
+        
 
         <%- include('_footer'); -%>
 

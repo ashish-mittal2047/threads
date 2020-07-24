@@ -1,0 +1,33 @@
+#page-header
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color:white;
+    background-image: linear-gradient(to top right,#13547a, #80d0c7);
+    header
+    {
+        font-size: 2rem;
+        font-weight: 600;
+        margin:10px;
+    }
+
+    ul
+    {
+        list-style: none;
+        display: flex;
+        margin: 0;
+
+        li
+        {
+            margin:10px;
+            font-size: 1.5rem;
+            font-weight: 520;
+            a
+            {
+                text-decoration: none;
+                color:white;
+            }
+        }
+    }
+}
