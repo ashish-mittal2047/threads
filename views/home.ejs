@@ -10,4 +10,17 @@
         <textarea name="content" cols="30" rows="3" placeholder="How are you feeling?"></textarea>
         <input type="submit" value="Post">
     </form>
+
+    <div id="posts-list-container">
+        <ul>
+            <% for(post of posts){ %>
+                <li>
+                    <h4><%= post.user.name %></h4>
+                    <p>    
+                        <%= post.content %>
+                    </p>
+                </li>
+            <% } %>
+        </ul>
+    </div>
 </section>
