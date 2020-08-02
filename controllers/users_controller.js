@@ -10,6 +10,19 @@ module.exports.profile = function(req, res){
     });
 }
 
+module.exports.update = function(req,res){
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id,req.body,function(err,user){   //here, we find the User object with particular id and assign to it, the request body which has updated parameters
+            return res.redirect('back');
+        });
+    }
+    else{
+        //if person viewing the profile isn't the owner of profile, then simply return back
+        return res.status(401).send('Unauthorized'); 
+    }
+}
+
+
 //render the sign up page
 module.exports.signUp = function(req, res){
     if(req.isAuthenticated()){
