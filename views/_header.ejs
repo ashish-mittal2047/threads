@@ -5,7 +5,7 @@
         <ul>
             <% if(locals.user){ %>  <!--This means user is signed in. We can user either locals.user or only user-->
                 <li>
-                    <a href="/users/profile">
+                    <a href="/users/profile/<%= user.id %>">
                         <%= user.name %>
                     </a>
                 </li>
