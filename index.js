@@ -11,6 +11,8 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo')(session);   //this requires argument session as we need to store session info in MongoDB so that every time server restarts, users don't get signed out
 const sassMiddleware = require('node-sass-middleware');
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 
 
 app.use(sassMiddleware({
@@ -66,6 +68,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+
+//Now becoz flash message uses session cookie so we place it after passport session is setup and before router
+app.use(flash());
+app.use(customMware.setFlash);
+
 //use express router
 app.use('/',require('./routes'));       //we have directly written require here, instead of storing require in a variable and then writing.We also don't need to mention index.js in routes as it is picked by default
 
