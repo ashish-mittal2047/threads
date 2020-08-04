@@ -39,13 +39,14 @@ module.exports.create = async function(req,res){
             });
             post.comments.push(comment);    //here, it is modified only on server
             post.save();    //this permanently modifies comment array by modifying in database
+            req.flash('success','Comment added successfully!');
             res.redirect('/');
         }
     }
     catch(err)
     {
-        console.log('Error');
-        return;
+        req.flash('error','Error in posting comment!');
+        return res.redirect('/');
     }
 }
 
@@ -75,16 +76,18 @@ module.exports.destroy = async function(req,res){
             let postId = comment.post;
             comment.remove();
             await Post.findByIdAndUpdate(postId, { $pull: {comments: req.params.id }});          //here $pull is an update operation. It pulls out(deletes) all instances of a value that match a specified condition. Here condition is, a value with req.params.id in comments array
+            req.flash('success','Comment deleted successfully!');
             return res.redirect('back');
         }
         else{
             //if user isn't the one who created that comment, then he is not allowed to delete comment and thus redirected back
+            req.flash('error','Unauthorized!');
             return res.redirect('back');
         }
     }
     catch(err)
     {
-        console.log('Error');
-        return;
+        req.flash('error',err);
+        return res.redirect('back');
     }
 }

@@ -25,10 +25,12 @@ module.exports.create = async function(req,res){
             content: req.body.content,
             user: req.user._id
         });
+        req.flash('success', 'Post published!');
         return res.redirect('back');
     }
     catch(err){
-        console.log('error occurred in creating a post');
+        req.flash('error', err);
+        return res.redirect('back');
     }   
     //Note: try catch is not compulsory but it is usually good to catch errors just as we do in callback
 }
@@ -62,17 +64,19 @@ module.exports.destroy = async function(req,res){
             //becoz only the user who made the post should be allowed to delete it and also the same user should be logged in
             //also we need to remove all comments associated with the post
             await Comment.deleteMany({post: req.params.id});
+            req.flash('success','Post and associated comments deleted!');
             return res.redirect('back');
         }
         else{
             //if signed-in user doesn't match with the one who wrote the post, then return back
+            req.flash('error','You cannot delete this post!');
             return res.redirect('back');
         }
     }
     catch(err)
     {
-        console.log('Error');
-        return;
+        req.flash('error', err);
+        return res.redirect('back');
     }
     
 }
